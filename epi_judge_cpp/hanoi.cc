@@ -10,9 +10,23 @@ using std::array;
 using std::stack;
 using std::vector;
 const int kNumPegs = 3;
+vector<vector<int>>result;
+void TOH(int n , int A , int B, int C){
+  if(n==1){
+    result.push_back({A,B});
+  }
+  else{
+    TOH(n-1,A,C,B);
+    result.push_back({A,B});
+    TOH(n-1,C,B,A);
+  }
+}
 vector<vector<int>> ComputeTowerHanoi(int num_rings) {
-  // TODO - you fill in here.
-  return {};
+  // TOD<O - you fill in here.
+  result.clear();
+  TOH(num_rings,0,1,2);
+  return result;
+  // return {};
 }
 void ComputeTowerHanoiWrapper(TimedExecutor& executor, int num_rings) {
   array<stack<int>, kNumPegs> pegs;

@@ -6,20 +6,31 @@
 using std::length_error;
 
 class Stack {
+  struct stackElements{
+    int value, max;
+    stackElements(int data, int max) : value(data) , max(max){};
+  };
+  std::stack<stackElements>st;
  public:
   bool Empty() const {
     // TODO - you fill in here.
-    return true;
+    return st.empty();
+    // return true;
   }
   int Max() const {
+    return st.top().max;
     // TODO - you fill in here.
-    return 0;
+    // return 0;
   }
   int Pop() {
     // TODO - you fill in here.
-    return 0;
+    int pop_element = st.top().value;
+    st.pop();
+    return pop_element;
+    // return 0;
   }
   void Push(int x) {
+    st.emplace(x, (Empty() ? x : std::max(Max() , x)));
     // TODO - you fill in here.
     return;
   }

@@ -1,9 +1,31 @@
 #include <string>
+#include<sstream>
 
 #include "test_framework/generic_test.h"
 using std::string;
 string ShortestEquivalentPath(const string& path) {
   // TODO - you fill in here.
+  string result="";
+  std::stringstream ss(path);
+  string token="";
+  std::stack<string>st;
+  while(getline(ss,token,'/')){
+    if(token == "" || token == "."){
+      continue;
+    }
+    if(token != ".."){
+      st.push(token);
+    }
+    else if(!st.empty()){
+      st.pop();
+    }
+  }
+  if(st.empty())return "/";
+  while(!st.empty()){
+    result = "/"+st.top()+result;
+    st.pop(); 
+  }
+  return result;
   return "";
 }
 

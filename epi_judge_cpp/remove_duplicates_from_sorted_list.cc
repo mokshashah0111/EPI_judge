@@ -5,6 +5,22 @@
 using std::shared_ptr;
 
 shared_ptr<ListNode<int>> RemoveDuplicates(const shared_ptr<ListNode<int>>& L) {
+  shared_ptr<ListNode<int>> current = L;
+  shared_ptr<ListNode<int>>result = current;
+ 
+
+  while (current)
+  {
+    shared_ptr<ListNode<int>>current_next = current->next;
+    while(current_next && current_next->data == current->data){
+      current_next = current_next->next;
+    }
+    current->next = current_next;
+    current= current_next;
+  }
+  return L;
+  
+  
   // TODO - you fill in here.
   return nullptr;
 }

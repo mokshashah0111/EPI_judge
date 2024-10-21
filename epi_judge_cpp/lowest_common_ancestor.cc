@@ -9,6 +9,17 @@ using std::unique_ptr;
 BinaryTreeNode<int>* Lca(const unique_ptr<BinaryTreeNode<int>>& tree,
                          const unique_ptr<BinaryTreeNode<int>>& node0,
                          const unique_ptr<BinaryTreeNode<int>>& node1) {
+                          if(tree==NULL || tree == node0 || tree ==node1) {
+                            return tree.get();
+                          }
+                          BinaryTreeNode<int>* left = Lca(tree->left,node0,node1);
+                          BinaryTreeNode<int>* right = Lca(tree->right, node0, node1);
+                          if(!left) return right;
+                          else if(!right) return left;
+                          else{
+                            return tree.get();
+                          }
+
   // TODO - you fill in here.
   return nullptr;
 }

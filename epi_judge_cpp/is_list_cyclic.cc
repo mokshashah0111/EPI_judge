@@ -7,6 +7,30 @@
 using std::shared_ptr;
 
 shared_ptr<ListNode<int>> HasCycle(const shared_ptr<ListNode<int>>& head) {
+  int cycle_length=1;
+  shared_ptr<ListNode<int>>slow_iter = head;
+  shared_ptr<ListNode<int>>fast_iter = head;
+  while(fast_iter && fast_iter->next){
+    slow_iter=slow_iter->next;
+    fast_iter= fast_iter->next->next;
+    if(slow_iter==fast_iter){
+      fast_iter=fast_iter->next;
+      while(slow_iter!=fast_iter){
+        cycle_length++;
+        fast_iter = fast_iter->next;
+      }
+      shared_ptr<ListNode<int>>cycle_advanced =head;
+      while(cycle_length--){
+        cycle_advanced= cycle_advanced->next;
+      }
+      shared_ptr<ListNode<int>>iter=head;
+      while(iter!=cycle_advanced){
+        iter=iter->next;
+        cycle_advanced=cycle_advanced->next;
+      }
+      return iter;
+    }
+  }
   // TODO - you fill in here.
   return nullptr;
 }

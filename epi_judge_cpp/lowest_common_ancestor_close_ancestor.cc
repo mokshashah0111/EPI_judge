@@ -7,6 +7,7 @@
 #include "test_framework/timed_executor.h"
 using std::unique_ptr;
 
+
 BinaryTreeNode<int>* Lca(const unique_ptr<BinaryTreeNode<int>>& node0,
                          const unique_ptr<BinaryTreeNode<int>>& node1) {
   // TODO - you fill in here.

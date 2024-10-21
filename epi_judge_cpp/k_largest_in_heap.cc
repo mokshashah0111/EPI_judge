@@ -1,10 +1,27 @@
 #include <vector>
+#include<queue>
 
 #include "test_framework/generic_test.h"
 using std::vector;
 
 vector<int> KLargestInBinaryHeap(const vector<int>& A, int k) {
-  // TODO - you fill in here.
+  // TOD<O - you fill in here.
+  vector<int>result;
+  std::priority_queue<int , vector<int>,std::greater<int>>minHeap;
+  for(int i = 0 ; i<A.size() ; i++){
+    if(minHeap.size() <k){
+      minHeap.push(A[i]);
+    }
+    else if(A[i] > minHeap.top()){
+      minHeap.pop();
+      minHeap.push(A[i]);
+    }
+  }
+  while(!minHeap.empty()){
+    result.push_back(minHeap.top());
+    minHeap.pop();
+  }
+  return result;
   return {};
 }
 

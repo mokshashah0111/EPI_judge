@@ -18,6 +18,20 @@ struct BinaryTreeNode {
 
 const BinaryTreeNode<int>* FindKthNodeBinaryTree(
     const unique_ptr<BinaryTreeNode<int>>& tree, int k) {
+    const BinaryTreeNode<int>* current = tree.get();
+    while(current!=nullptr){
+      int left_size = current->left ? current->left->size : 0;
+
+      if((left_size+1) < k){
+        k -= (left_size+1);
+        current = current->right.get();
+      }
+      else if(k == left_size+1) return current;
+      else{
+        current = current->left.get();
+      }
+    }
+
   // TODO - you fill in here.
   return nullptr;
 }

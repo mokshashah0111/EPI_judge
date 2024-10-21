@@ -4,9 +4,33 @@
 #include "test_framework/generic_test.h"
 using std::vector;
 
-vector<int> InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
+vector<int> InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree){
   // TODO - you fill in here.
-  return {};
+  vector<int>result;
+  const BinaryTreeNode<int>* current = tree.get();
+  const BinaryTreeNode<int>* prev = nullptr;
+  while(current){
+    const BinaryTreeNode<int>* next = current->parent;
+    if(current->parent==prev){
+      if(current->left){
+        next = current->left.get();
+      }
+      else{
+        result.push_back(current->data);
+        next = current->right ? current->right.get() : current->parent;
+      }
+    }
+    else if(current->left.get() == prev){
+      result.push_back(current->data);
+      next = current->right ? current->right.get() : current->parent;
+    }
+    else{
+      next = current->parent;
+    }
+    prev= current;
+    current = next;
+  }
+  return result;
 }
 
 int main(int argc, char* argv[]) {

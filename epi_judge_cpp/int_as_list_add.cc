@@ -4,6 +4,23 @@
 shared_ptr<ListNode<int>> AddTwoNumbers(shared_ptr<ListNode<int>> L1,
                                         shared_ptr<ListNode<int>> L2) {
   // TODO - you fill in here.
+  shared_ptr<ListNode<int>>current(new ListNode<int>);
+  shared_ptr<ListNode<int>>result = current;
+  int carry=0;
+  int sum = 0;
+  int value = 0;
+  while(L1->next || L2->next || carry){
+    sum = (L1 ? L1->data : 0) + (L2 ? L2->data : 0) + carry;
+    carry = sum/10;
+    value = sum%10;
+    shared_ptr<ListNode<int>>newNode= make_shared<ListNode<int>>(value);
+    result->next = newNode;
+    result = result->next;
+
+    L1 = L1 ? L1->next : nullptr;
+    L2 = L2 ? L2->next : nullptr;
+  }
+  return current->next;
   return nullptr;
 }
 

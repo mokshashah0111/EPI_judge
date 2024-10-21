@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cmath>
 #include <vector>
+#include<queue>
 
 #include "test_framework/generic_test.h"
 #include "test_framework/serialization_traits.h"
@@ -21,6 +22,24 @@ vector<Star> FindClosestKStars(vector<Star>::const_iterator stars_begin,
                                const vector<Star>::const_iterator& stars_end,
                                int k) {
   // TODO - you fill in here.
+  // std::priority_queue<Star,std::vector<Star>,std::greater<Star>>minHeap;
+  std::priority_queue<Star>maxHeap;
+  vector<Star>stars(stars_begin,stars_end);
+  vector<Star>result;
+  for(int i = 0 ; i<stars.size() ; i++){
+    if(maxHeap.size() < k){
+      maxHeap.push(stars[i]);
+    }
+    else if(maxHeap.top().Distance() > stars[i].Distance() ){
+      maxHeap.pop();
+      maxHeap.push(stars[i]);
+    }
+  }
+  while(!maxHeap.empty()){
+    result.push_back(maxHeap.top());
+    maxHeap.pop();
+  }
+  return result;
   return {};
 }
 

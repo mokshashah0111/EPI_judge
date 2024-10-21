@@ -13,7 +13,15 @@ BstNode<int>* FindLca(const unique_ptr<BstNode<int>>& tree,
                       const unique_ptr<BstNode<int>>& s,
                       const unique_ptr<BstNode<int>>& b) {
   // TODO - you fill in here.
-  return nullptr;
+  
+  if(!tree || tree==s || tree==b) return tree.get();
+  BstNode<int>* left = FindLca(tree->left,s,b);
+  BstNode<int>* right = FindLca(tree->left,s,b);
+  if(!left) return right;
+  else if(!right) return left;
+  else{
+    return tree.get();
+  }
 }
 int LcaWrapper(TimedExecutor& executor,
                const std::unique_ptr<BstNode<int>>& tree, int key0, int key1) {

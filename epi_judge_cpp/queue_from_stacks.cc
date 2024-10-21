@@ -7,13 +7,33 @@
 #include "test_framework/test_failure.h"
 using std::length_error;
 class Queue {
+  std::stack<int>s1;
+  std::stack<int>s2;
  public:
   void Enqueue(int x) {
+    s1.emplace(x);
     // TODO - you fill in here.
     return;
   }
   int Dequeue() {
     // TODO - you fill in here.
+    if(!s2.empty()){
+      int answer = s2.top();
+      s2.pop();
+      return answer;
+    }
+    else{
+      while(!s1.empty()){
+        s2.emplace(s1.top());
+        s1.pop();
+      }
+      if(!s2.empty()){
+        int answer = s2.top();
+        s2.pop();
+        return answer;
+      }
+    }
+    // return s2.top();
     return 0;
   }
 };

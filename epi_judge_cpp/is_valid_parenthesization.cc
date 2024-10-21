@@ -4,7 +4,23 @@
 using std::string;
 bool IsWellFormed(const string& s) {
   // TODO - you fill in here.
-  return true;
+  std::stack<int>st;
+  for(int i = 0; i<s.length() ; i++){
+    if(s[i] == '(' || s[i] == '[' || s[i] == '{'){
+      st.push(s[i]);
+    }
+    else if (s[i] == ')' || s[i] == ']' || s[i] == '}'){
+      if(st.empty()){
+        return false;
+      }
+      char c= st.top();
+      st.pop();
+      if((c=='(' && s[i] != ')') || (s[i] != ']' && c=='[') || (s[i]!='}' && c=='{')) {
+        return false;
+      }
+    }
+  }
+  return st.empty();
 }
 
 int main(int argc, char* argv[]) {
@@ -13,4 +29,4 @@ int main(int argc, char* argv[]) {
   return GenericTestMain(args, "is_valid_parenthesization.cc",
                          "is_valid_parenthesization.tsv", &IsWellFormed,
                          DefaultComparator{}, param_names);
-}
+} 
